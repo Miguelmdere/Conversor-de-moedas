@@ -7,13 +7,13 @@ const form = document.querySelector("form")
 const amount = document.getElementById("amount")
 const currency = document.getElementById("currency")
 const footer = document.querySelector("main footer")
-const result = document.getElementById("description")
+const description = document.getElementById("description")
+const result = document.getElementById("result")
 
 amount.addEventListener("input", () =>{
 
-  const hasCharactersRegex = / \D+ /g
-  amount.value = amount.value.replace(hasCharactersRegex, '')
-
+  const hasCharactersRegex = /\D+/g
+  amount.value = amount.value.replace(hasCharactersRegex,"")
 
   console.log(amount.value)
 })
@@ -39,18 +39,38 @@ form.onsubmit = (e) => {
 }
 function convert(amount, price, symbol){
   try{
+      
     description.textContent = `${symbol} 1 = ${price}`
-      footer.classList.add("show-footer")
+      footer.classList.add("show-result")
+
+      function calculate(amount){
+
+      if(currency.value == "USD"){
+         amount = amount * USD
+         result.textContent = `${amount} Reais`
+        }else if(currency.value == "EUR"){
+          amount = amount * EUR
+          result.textContent = `${amount} Reais`
+        }else if(currency.value == "GBP"){
+         amount = amount * GBP
+         result.textContent = `${amount} Reais`
+        }else{
+          alert("Selecione uma moeda")
+        }
+        result.textContent = formatCurrency(amount)
+      }
+    calculate(amount)
+    
 
   }catch(error){
     console.log(error)
 
-    footer.classList.remove("show-footer")
+    footer.classList.remove("show-result")
     alert("Ocorreu um erro ao converter a moeda, Tente novamente mais tarde!!!")
 
   }
-
 }
+
 
 function formatCurrency(value){
   return Number(value).toLocaleString('pt-BR', {
