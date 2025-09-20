@@ -12,7 +12,7 @@ const result = document.getElementById("result")
 
 amount.addEventListener("input", () =>{
 
-  const hasCharactersRegex = /\D+,[.]+/g
+  const hasCharactersRegex = /\D+,[. ,]+/g
   amount.value = amount.value.replace(hasCharactersRegex, "")
 
   console.log(amount.value)
